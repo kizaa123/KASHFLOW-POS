@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - KASHFLOW</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="login-body">
+  <main class="login-card setup-card" role="main">
+    <img src="assets/logo.png" alt="KASHFLOW" class="setup-logo" />
+    <h1 class="setup-title">Welcome to KASHFLOW</h1>
+    <p class="setup-sub">Create your account to get started</p>
+
+    <form id="setupForm" class="setup-form" novalidate>
+      <div class="setup-field">
+        <i class="fa-regular fa-user"></i>
+        <input id="setupUsername" type="text" placeholder="Username" aria-label="Username" autocomplete="username" autocapitalize="none" spellcheck="false" required />
+      </div>
+
+      <div class="setup-field">
+        <i class="fa-solid fa-lock"></i>
+        <input id="setupPassword" type="password" placeholder="Password (at least 6 characters)" aria-label="Password" autocomplete="new-password" required />
+        <button type="button" class="setup-eye" data-eye="setupPassword" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>
+      </div>
+
+      <div class="setup-field">
+        <i class="fa-solid fa-lock"></i>
+        <input id="setupConfirm" type="password" placeholder="Confirm password" aria-label="Confirm password" autocomplete="new-password" required />
+        <button type="button" class="setup-eye" data-eye="setupConfirm" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>
+      </div>
+
+      <p id="setupError" class="login-error" role="alert" hidden></p>
+
+      <button type="submit" class="btn-primary setup-submit">Create my account <i class="fa-solid fa-arrow-right"></i></button>
+    </form>
+
+    <p class="setup-note"><i class="fa-solid fa-shield-halved"></i> This will be the shop's Administrator account. Keep your password safe.</p>
+  </main>
+
+  <script src="js/store.js"></script>
+  <script src="js/setup.js"></script>
+</body>
+</html>

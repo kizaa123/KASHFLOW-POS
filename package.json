@@ -1,0 +1,64 @@
+{
+  "name": "kashflow-pos",
+  "productName": "KASHFLOW POS",
+  "version": "1.0.0",
+  "description": "KASHFLOW offline point of sale and inventory system",
+  "author": {
+    "name": "KB.TECH STUDIO"
+  },
+  "main": "electron/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "vendor": "node scripts/copy-vendor.js",
+    "icons": "node scripts/make-icons.js",
+    "dist": "electron-builder --win nsis",
+    "postinstall": "node scripts/copy-vendor.js"
+  },
+  "build": {
+    "appId": "com.kbtech.kashflowpos",
+    "electronDist": "node_modules/electron/dist",
+    "productName": "KASHFLOW POS",
+    "copyright": "Copyright © 2026 KB.TECH STUDIO",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "*.html",
+      "css/**/*",
+      "js/**/*",
+      "assets/**/*",
+      "vendor/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "KASHFLOW POS",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "chart.js": "^4.4.1",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
+    "png-to-ico": "^3.0.2",
+    "sharp": "^0.35.5",
+    "xlsx": "^0.18.5"
+  }
+}
