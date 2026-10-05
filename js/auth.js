@@ -52,8 +52,7 @@
       return lockedMessage(lock.until);
     }
     KF.setLoginLock(lock);
-    const left = KF.MAX_LOGIN_TRIES - lock.fails;
-    return `Invalid username or password. ${left} attempt${left === 1 ? '' : 's'} left before login is locked.`;
+    return 'Invalid username or password.';
   }
 
   const submitBtn = form.querySelector('button[type="submit"]');

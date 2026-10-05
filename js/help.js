@@ -55,7 +55,7 @@
           <li>Username and password must match an account on <strong>User Accounts</strong>.</li>
           <li><strong>Login As</strong> must match that account’s role. An Administrator account cannot log in as Cashier, and a Cashier account cannot log in as Administrator.</li>
           <li>Caps Lock can change a password. Passwords are checked exactly as typed.</li>
-          <li>After 5 wrong passwords in a row, the login page locks for 5 minutes. Wait, then try again. The Administrator sees a <em>Login blocked</em> alert in Notifications.</li>
+          <li>Too many wrong passwords lock the login page for a short while. Wait, then try again. The Administrator sees a <em>Login blocked</em> alert in Notifications.</li>
         </ul>`,
     },
     {
@@ -285,7 +285,7 @@
       cat: 'reset',
       q: 'Where is my shop data stored?',
       a: `
-        <p>Everything is saved on this computer by the KASHFLOW POS app (not in the cloud), in the Windows folder <code>%APPDATA%\\KASHFLOW POS</code>. That is why the system works without an internet connection.</p>
+        <p>Everything is saved safely on this computer by the KASHFLOW POS app (not in the cloud). That is why the system works without an internet connection.</p>
         <p>Installing a new version of KASHFLOW keeps this data. A different Windows user or another PC starts with an empty shop — the data does not travel with you.</p>`,
     },
     {

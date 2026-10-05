@@ -13,7 +13,7 @@
     "vendor": "node scripts/copy-vendor.js",
     "icons": "node scripts/make-icons.js",
     "dist": "electron-builder --win nsis",
-    "postinstall": "node scripts/copy-vendor.js"
+    "keygen": "node scripts/keygen.js",    "postinstall": "node scripts/copy-vendor.js"
   },
   "build": {
     "appId": "com.kbtech.kashflowpos",
@@ -38,6 +38,7 @@
       "icon": "build/icon.ico"
     },
     "nsis": {
+      "artifactName": "KASHFLOW-POS-Setup.exe",
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,

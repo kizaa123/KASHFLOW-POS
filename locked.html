@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activate - KASHFLOW</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="login-body">
+  <main class="login-card setup-card lock-card" role="main">
+    <div class="lock-logo">
+      <img src="assets/logo.png" alt="KASHFLOW" class="setup-logo" />
+      <span class="lock-dot"><i class="fa-solid fa-lock"></i></span>
+    </div>
+    <h1 class="setup-title" id="lockTitle">Your free trial is over</h1>
+    <p class="setup-sub" id="lockText">To keep using KASHFLOW, call or WhatsApp <b>053 180 6381</b> with your Machine ID.</p>
+
+    <div class="lock-id">
+      <span>Machine ID</span>
+      <code id="machineId">…</code>
+    </div>
+
+    <form id="activateForm" class="setup-form" novalidate>
+      <input id="licenseKey" class="lock-key" type="text" placeholder="Enter licence key" aria-label="Licence key" autocomplete="off" spellcheck="false" maxlength="23" />
+      <p id="lockError" class="login-error" role="alert" hidden></p>
+      <button type="submit" class="btn-primary setup-submit">Activate</button>
+    </form>
+
+    <button type="button" class="lock-wa" id="lockWhatsApp"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</button>
+  </main>
+
+  <script src="js/locked.js"></script>
+</body>
+</html>

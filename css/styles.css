@@ -221,6 +221,51 @@ html[data-theme="dark"] .theme-pick:has(input:checked) { background: #2e1064; co
 .nav-link:hover { background: rgba(255, 255, 255, 0.08); }
 .nav-link.active { background: var(--nav-active-bg); color: var(--nav-active-text); }
 .nav-link.logout { margin-top: auto; color: #ef4444; }
+.sidebar-clock {
+  margin: auto 4px 10px;
+  padding: 12px 10px;
+  border-radius: 12px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.sidebar-clock + .nav-link.logout { margin-top: 0; }
+.clock-time {
+  display: block;
+  font-family: Bahnschrift, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.clock-date {
+  display: block;
+  margin-top: 2px;
+  font-family: Bahnschrift, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.4px;
+  opacity: 0.7;
+}
+.sidebar { overflow-y: auto; scrollbar-width: none; }
+@media (max-height: 860px) {
+  .sidebar { padding-top: 14px; padding-bottom: 12px; }
+  .sidebar-brand { margin-bottom: 12px; }
+  .sidebar .avatar { width: 84px; height: 84px; font-size: 36px; }
+  .nav { gap: 2px; }
+  .nav-link { padding: 9px 14px; }
+  .sidebar-clock { padding: 8px 10px; margin-bottom: 6px; }
+  .clock-time { font-size: 16px; }
+}
+@media (max-height: 700px) {
+  .sidebar .avatar { width: 64px; height: 64px; font-size: 28px; }
+  .sidebar-edit { margin-bottom: 4px; }
+  .nav-link { padding: 7px 14px; font-size: 14px; }
+  .clock-date { display: none; }
+}
+body.cashier-view .sidebar-clock { margin: auto 0 10px; padding: 8px 2px; }
+body.cashier-view .clock-time { font-size: 11.5px; letter-spacing: 0; }
+body.cashier-view .clock-date { display: none; }
 .nav-link.hidden { display: none; }
 
 .content { flex: 1; padding: 18px 26px 40px; min-width: 0; animation: pageIn 0.45s ease-out; }
@@ -1606,6 +1651,55 @@ body.cashier-view .btn-green.full { font-size: 17px; padding: 14px; }
 .setup-note { margin: 16px 0 0; font-size: 12px; color: #6b7280; line-height: 1.5; }
 .setup-note i { color: var(--green); margin-right: 4px; }
 
+/* ===== Trial over / licence lock ===== */
+.lock-card { max-width: 400px; }
+.lock-logo { position: relative; display: inline-block; }
+.lock-dot {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 28px;
+  height: 28px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  color: #fff;
+  background: var(--orange);
+}
+.lock-card .setup-sub { line-height: 1.6; margin-bottom: 20px; }
+.lock-card .setup-sub b { color: #111827; white-space: nowrap; }
+.lock-id { margin-bottom: 16px; padding: 12px; border-radius: 10px; background: #f3f4f6; }
+.lock-id span { display: block; font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
+.lock-id code { display: block; margin-top: 4px; font-size: 18px; font-weight: 800; color: #1e1b4b; letter-spacing: 1.5px; user-select: all; }
+.lock-key {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+  color: #111827;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+.lock-key::placeholder { color: #9ca3af; font-family: "Segoe UI", system-ui, sans-serif; font-weight: 400; letter-spacing: 0; }
+.lock-key:focus { outline: none; background: #fff; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(242, 107, 29, 0.18); }
+.lock-wa {
+  margin-top: 16px;
+  border: 0;
+  background: transparent;
+  color: #16a34a;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lock-wa i { font-size: 16px; margin-right: 4px; }
+.lock-wa:hover { text-decoration: underline; }
+.lock-success { margin: 6px 0; color: var(--green); font-weight: 700; text-align: center; }
 /* ===== First-time hand guide ===== */
 .tour-overlay { position: fixed; inset: 0; z-index: 200; }
 .tour-spot {

@@ -21,12 +21,40 @@ User Accounts and cannot be edited or deleted from the app. Its password is not 
 PBKDF2 hash is stored in `js/store.js`. Keep the password private. To change it, generate a new salt and hash
 and replace `SUPPORT_SECRET` in `js/store.js`.
 
-Older installs that still used `admin` / `admin123` or `cashier` / `cashier123` lose those accounts on update.
-If no Administrator is left, the Welcome screen appears so the owner can create one; shop data is kept.
-
 ## Zoom
 
 Ctrl + / Ctrl − / Ctrl + mouse wheel zoom between 80% and 120% only, so screens never break apart. Ctrl + 0 resets.
+
+## Free trial and licence key
+
+- Every new computer gets a **5-day free trial**. The countdown is never shown to the shop.
+- When the trial ends, KASHFLOW shows a lock screen with WhatsApp and Call buttons (053 180 6381). Shop data is kept.
+- The lock screen shows the computer's **Machine ID** (e.g. `KD64-M8FM-409A-BR1Y`). The customer reads it to you on the phone or sends it by WhatsApp/SMS.
+- After payment, make the key on the KB.TECH computer:
+
+  ```powershell
+  npm run keygen -- KD64-M8FM-409A-BR1Y
+  ```
+
+  It prints a 20-character key like `7KQ2M-9XD4T-PAZR3-W8N5C`. The customer types it on the lock screen and presses **Activate**. A key only works on the computer it was made for, and it never expires.
+- Every key you make is saved in `license-keys\issued-keys.csv` (kept out of git).
+- Keep the source code private: anyone with `scripts\keygen.js` and `electron\license.js` can make keys.
+- A Windows reinstall changes the Machine ID, so that customer needs a new key.
+
+## Download website
+
+The one-page website is in `website/` (`index.html`, `style.css`, `img/`, `vendor/`).
+
+The Download button points to the newest GitHub release:
+`https://github.com/kizaa123/KASHFLOW-POS/releases/latest/download/KASHFLOW-POS-Setup.exe`
+
+To publish a new version:
+
+1. Raise `version` in `package.json` and run `npm run dist`. The installer is `dist\KASHFLOW-POS-Setup.exe` (the name never changes, so the link keeps working).
+2. On GitHub open **Releases → Draft a new release**, tag it (e.g. `v1.0.1`), attach `dist\KASHFLOW-POS-Setup.exe` and publish.
+3. Upload the `website` folder to any static host (Netlify, GitHub Pages, cPanel). It no longer contains the installer, so it is small.
+
+**Keep the source code out of any public repository.** `electron/license.js` and `scripts/keygen.js` can make licence keys. Release files of a private repository cannot be downloaded by the public, so publish releases from a public repository that holds no code.
 
 ## Install on a shop computer (no coding tools needed)
 

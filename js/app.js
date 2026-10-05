@@ -51,7 +51,25 @@
           .map((n) => `<a class="nav-link${n.href.replace('.html', '') === current ? ' active' : ''}" href="${n.href}" title="${n.label}"><i class="fa-solid ${n.icon}"></i><span class="nav-label"> ${n.label}</span></a>`)
           .join('')}
       </nav>
+      <div class="sidebar-clock" aria-live="off">
+        <span class="clock-time" id="clockTime">--:--:--</span>
+        <span class="clock-date" id="clockDate"></span>
+      </div>
       <button id="logoutBtn" class="nav-link logout" title="Logout"><i class="fa-solid fa-right-from-bracket"></i><span class="nav-label"> Logout</span></button>`;
+
+    // Live clock: 16:26:21 / Mon, 5 Oct 2026
+    const timeEl = aside.querySelector('#clockTime');
+    const dateEl = aside.querySelector('#clockDate');
+    const pad = (n) => String(n).padStart(2, '0');
+    const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const tick = () => {
+      const d = new Date();
+      timeEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+      dateEl.textContent = `${DAYS[d.getDay()]}, ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+    };
+    tick();
+    setInterval(tick, 1000);
   }
 
   // ---- Footer quick links ----
