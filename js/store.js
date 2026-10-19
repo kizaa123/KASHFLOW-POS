@@ -88,6 +88,28 @@
     return 'GH₵' + Number(n || 0).toLocaleString('en-GH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
+  function roundMoney(n) {
+    return Math.round((Number(n) || 0) * 100) / 100;
+  }
+
+  // One sold line: qty × (sell price − cost price). Looks up the product if a sale is missing cost or price.
+  function lineAmounts(l) {
+    const qty = Number(l && l.qty);
+    let price = Number(l && l.price);
+    let cost = Number(l && l.cost);
+    if (!Number.isFinite(price) || !Number.isFinite(cost)) {
+      const p = read(KEYS.products, []).find((x) => Number(x.id) === Number(l && l.productId));
+      if (p) {
+        if (!Number.isFinite(price)) price = Number(p.price);
+        if (!Number.isFinite(cost)) cost = Number(p.cost);
+      }
+    }
+    const q = Number.isFinite(qty) ? qty : 0;
+    const pr = Number.isFinite(price) ? price : 0;
+    const c = Number.isFinite(cost) ? cost : 0;
+    return { qty: q, price: pr, cost: c, total: roundMoney(q * pr), profit: roundMoney(q * (pr - c)) };
+  }
+
   function generateBarcode() {
     return '#PR-' + String(Math.floor(1000 + Math.random() * 9000));
   }
@@ -342,7 +364,12 @@
 
     totalProfit() {
       return KF.activeSales().reduce(
-        (sum, s) => sum + s.items.reduce((a, l) => a + l.qty * (l.price - l.cost), 0),
+        (sum, s) => sum + s.items.reduce((a, l) => {
+          const qty   = Number(l.qty)   || 0;
+          const price = Number(l.price) || 0;
+          const cost  = Number.isFinite(Number(l.cost)) ? Number(l.cost) : 0;
+          return a + qty * (price - cost);
+        }, 0),
         0,
       );
     },

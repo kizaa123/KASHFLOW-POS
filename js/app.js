@@ -397,4 +397,75 @@
       KFUI.toast('Profile saved.');
     });
   }
+  // ---- Update banner ----
+  // Shown when the main process detects a newer version is available online.
+  // The banner is created once and stays visible across all signed-in pages.
+  (function initUpdateBanner() {
+    if (!window.kfUpdate) return; // not running inside Electron
+
+    function showBanner(info) {
+      if (document.getElementById('kfUpdateBanner')) return; // already showing
+      const bar = document.createElement('div');
+      bar.id = 'kfUpdateBanner';
+      bar.setAttribute('role', 'alert');
+      bar.style.cssText = [
+        'position:fixed', 'top:0', 'left:0', 'right:0', 'z-index:99999',
+        'display:flex', 'align-items:center', 'gap:12px',
+        'padding:10px 18px',
+        'background:linear-gradient(90deg,#7c3aed,#4f46e5)',
+        'color:#fff', 'font-size:13.5px', 'font-family:inherit',
+        'box-shadow:0 3px 14px rgba(0,0,0,.35)',
+        'animation:kfBannerSlide .35s ease',
+      ].join(';');
+      bar.innerHTML = `
+        <i class="fa-solid fa-circle-up" style="font-size:16px;flex-shrink:0"></i>
+        <span style="flex:1">
+          <strong>Update available – v${esc(info.version)}</strong>
+          &nbsp;A new version of KASHFLOW POS is ready. Connect to the internet and install it to get the latest features and fixes.
+          <strong style="margin-left:4px">Your data will not be affected.</strong>
+        </span>
+        <button id="kfUpdateDownload" style="
+          background:#fff;color:#4f46e5;border:none;border-radius:6px;
+          padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer;
+          white-space:nowrap;flex-shrink:0
+        "><i class="fa-solid fa-download"></i> Download Update</button>
+        <button id="kfUpdateDismiss" aria-label="Dismiss update notification" style="
+          background:rgba(255,255,255,.18);border:none;border-radius:6px;
+          padding:6px 10px;color:#fff;font-size:13px;cursor:pointer;flex-shrink:0
+        "><i class="fa-solid fa-xmark"></i></button>`;
+
+      // Inject the slide-in keyframe once.
+      if (!document.getElementById('kfBannerStyle')) {
+        const s = document.createElement('style');
+        s.id = 'kfBannerStyle';
+        s.textContent = '@keyframes kfBannerSlide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+        document.head.appendChild(s);
+      }
+
+      document.body.prepend(bar);
+
+      // Nudge the body down so the banner doesn't overlap content.
+      const shift = () => { document.body.style.paddingTop = (bar.offsetHeight + 2) + 'px'; };
+      shift();
+      window.addEventListener('resize', shift);
+
+      document.getElementById('kfUpdateDownload').addEventListener('click', () => {
+        window.kfUpdate.openDownload();
+      });
+      document.getElementById('kfUpdateDismiss').addEventListener('click', () => {
+        bar.style.animation = 'kfBannerSlide .25s ease reverse forwards';
+        setTimeout(() => {
+          bar.remove();
+          document.body.style.paddingTop = '';
+          window.removeEventListener('resize', shift);
+        }, 280);
+      });
+    }
+
+    // Listen for the main process to push an update event.
+    window.kfUpdate.onAvailable(showBanner);
+
+    // Also poll on page load in case the event fired before this page was ready.
+    window.kfUpdate.check().then((info) => { if (info) showBanner(info); }).catch(() => {});
+  }());
 })();

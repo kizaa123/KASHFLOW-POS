@@ -253,7 +253,8 @@
 
     const items = cart.map((c) => {
       const p = productById(c.productId);
-      return { productId: p.id, categoryId: p.categoryId, name: p.name, qty: c.qty, price: Number(p.price), cost: Number(p.cost) || 0, unit: p.unit || 'single', piecesPerPkt: Number(p.piecesPerPkt) || 1 };
+      const rawCost = Number(p.cost);
+      return { productId: p.id, categoryId: p.categoryId, name: p.name, qty: c.qty, price: Number(p.price) || 0, cost: Number.isFinite(rawCost) ? rawCost : 0, unit: p.unit || 'single', piecesPerPkt: Number(p.piecesPerPkt) || 1 };
     });
     const t = cartTotals();
     lastSale = KF.recordSale({
