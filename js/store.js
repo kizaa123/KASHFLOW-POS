@@ -362,9 +362,9 @@
       return KF.activeSales().filter((s) => dayKey(s.time) === key);
     },
 
-    totalProfit() {
-      return KF.activeSales().reduce(
-        (sum, s) => sum + s.items.reduce((a, l) => {
+    profitForSales(sales) {
+      return (sales || []).reduce(
+        (sum, s) => sum + (s.items || []).reduce((a, l) => {
           const qty   = Number(l.qty)   || 0;
           const price = Number(l.price) || 0;
           const cost  = Number.isFinite(Number(l.cost)) ? Number(l.cost) : 0;
@@ -372,6 +372,14 @@
         }, 0),
         0,
       );
+    },
+
+    todayProfit() {
+      return KF.profitForSales(KF.salesForDay(KF.todayKey()));
+    },
+
+    totalProfit() {
+      return KF.profitForSales(KF.activeSales());
     },
 
     // ---- Point of sale ----
